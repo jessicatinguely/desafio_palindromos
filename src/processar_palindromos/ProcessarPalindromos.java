@@ -1,58 +1,62 @@
 package processar_palindromos;
 
+import java.text.Normalizer;
 import java.util.Scanner;
 
 public class ProcessarPalindromos {
 
-	public static void main(String[] args) {
-	
-	//Receber a string 
-	
-	Scanner leia = new Scanner(System.in);
-	
-	String palavra;
-	
-	System.out.println("Digite uma palavra: ");
-	palavra= leia.nextLine();
-		
-	//Fazer o lenght 
-	
-	int tamanhoPalavra = palavra.length();
-		
-	//Validar se é maior que 3 e se é impar 
-    
-    if (tamanhoPalavra < 3 || tamanhoPalavra % 2 == 0) {
-    	System.out.println("Não é um Palíndromo");
-    	return; // encerra o programa aqui
-    }
-   
-    //Vetor da palavra
-    char[] letras = palavra.toCharArray();
-    
-    //Vetor Invertido 
-    char[] invertida = new char[tamanhoPalavra];
-    for (int i = 0; i < tamanhoPalavra; i++) {
-        invertida[i] = letras[tamanhoPalavra - 1 - i];
-    }
+    public static void main(String[] args) {
 
-    //Comparar se é palíndromo
-    boolean palindromo = true;
+        Scanner leia = new Scanner(System.in);
+        String continuar = "s";
 
-    for (int i = 0; i < tamanhoPalavra; i++) {
-        if (letras[i] != invertida[i]) {
-            palindromo = false;
-            break;
+        while (continuar.equalsIgnoreCase("s")) {
+
+            System.out.println("Digite uma palavra ou frase: ");
+            String palavra = leia.nextLine();
+
+            // Normalizar: tirar acentos, espaços e pontuações, e deixar minúscula
+            palavra = Normalizer.normalize(palavra, Normalizer.Form.NFD);
+            palavra = palavra.replaceAll("[^a-zA-Z0-9]", ""); 
+            palavra = palavra.toLowerCase();
+
+            int tamanhoPalavra = palavra.length();
+
+            if (tamanhoPalavra < 3) {
+                System.out.println("Não é um Palíndromo");
+            } else {
+
+                // Vetor original
+                char[] letras = palavra.toCharArray();
+
+                // Vetor invertido
+                char[] invertida = new char[tamanhoPalavra];
+                for (int i = 0; i < tamanhoPalavra; i++) {
+                    invertida[i] = letras[tamanhoPalavra - 1 - i];
+                }
+
+                // Comparar
+                boolean palindromo = true;
+                for (int i = 0; i < tamanhoPalavra; i++) {
+                    if (letras[i] != invertida[i]) {
+                        palindromo = false;
+                        break;
+                    }
+                }
+
+                if (palindromo) {
+                    System.out.println("É um palíndromo!");
+                } else {
+                    System.out.println("Não é um palíndromo!");
+                }
+            }
+
+            // Perguntar se deseja continuar
+            System.out.println("\nDeseja verificar outra palavra? (s/n)");
+            continuar = leia.nextLine();
         }
-    }
 
-    //Mostrar resultado
-    if (palindromo) {
-        System.out.println("É um palíndromo!");
-    } else {
-        System.out.println("Não é um palíndromo!");
+        System.out.println("Obrigada pela sua visita ! Esperamos que tenha gostado da experiência. Volte sempre!");
+        leia.close();
     }
-    
-    leia.close();
-	
-	}
 }
