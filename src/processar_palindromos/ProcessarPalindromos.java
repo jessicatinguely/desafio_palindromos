@@ -21,7 +21,7 @@ public class ProcessarPalindromos {
 		
 	//Validar se é maior que 3 e se é impar 
     
-    if (tamanhoPalavra < 3 || tamanhoPalavra % 2 == 0) {
+    if (tamanhoPalavra < 3) {
     	System.out.println("Não é um Palíndromo");
     	return; // encerra o programa aqui
     }
