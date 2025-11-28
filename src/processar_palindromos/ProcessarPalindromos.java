@@ -6,7 +6,7 @@ public class ProcessarPalindromos {
 
 	public static void main(String[] args) {
 	
-	// Receber a string 
+	//Receber a string 
 	
 	Scanner leia = new Scanner(System.in);
 	
@@ -18,20 +18,41 @@ public class ProcessarPalindromos {
 	//Fazer o lenght 
 	
 	int tamanhoPalavra = palavra.length();
-    System.out.println("O tamanho da String é: " + tamanhoPalavra);
 		
 	//Validar se é maior que 3 e se é impar 
     
-    if (tamanhoPalavra <3 || tamanhoPalavra % 2 == 0) {
-    	System.out.println("Não é um Palindromo");
+    if (tamanhoPalavra < 3 || tamanhoPalavra % 2 == 0) {
+    	System.out.println("Não é um Palíndromo");
+    	return; // encerra o programa aqui
     }
    
-  //Fazer logica 
+    //Vetor da palavra
+    char[] letras = palavra.toCharArray();
     
-		
+    //Vetor Invertido 
+    char[] invertida = new char[tamanhoPalavra];
+    for (int i = 0; i < tamanhoPalavra; i++) {
+        invertida[i] = letras[tamanhoPalavra - 1 - i];
+    }
+
+    //Comparar se é palíndromo
+    boolean palindromo = true;
+
+    for (int i = 0; i < tamanhoPalavra; i++) {
+        if (letras[i] != invertida[i]) {
+            palindromo = false;
+            break;
+        }
+    }
+
+    //Mostrar resultado
+    if (palindromo) {
+        System.out.println("É um palíndromo!");
+    } else {
+        System.out.println("Não é um palíndromo!");
+    }
+    
+    leia.close();
 	
-
-
 	}
-
 }
